@@ -1,0 +1,385 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	color: #000;
+}
+img{
+	border: 0;
+}
+body{
+	background-color: #f5f5f5;
+}
+ 
+#wholeWrap{
+	max-width: 640px;
+	min-width: 320px;
+	background-color: whitesmoke;
+	margin:0 auto;
+	position: relative;
+	overflow: hidden;
+}
+   /*头部*/
+.header{
+	width: 100%;
+	max-width: 640px;
+	height: 40px;
+	position: fixed;
+	z-index: 99;
+	overflow: hidden;
+}
+#headerFront{
+	width: 100%;
+/*	padding: 0 10px;*/
+	position: relative;
+}
+/*#headerFront span{
+	position: absolute;
+	top: 12px;
+	left: 13.75%;
+}*/
+.logo{
+	width: 56px;
+	height: 21px;
+	display: inline-block;
+	background: url(../images/sprites.png) no-repeat;
+	background-size: 200px 200px;
+	background-position: 0px -109px;
+	vertical-align: middle;
+	position: absolute;
+	top: 5px;
+	left: 10px;
+}
+.headerMid{
+	height: 30px;
+	line-height: 30px;
+	margin: 5px 45px 0 75px;
+	border-radius: 15px;
+	background-color: #fff;
+}
+.headerMid span{
+	display: inline-block;
+	vertical-align: middle;
+	width: 20px;
+	height: 20px;
+	margin-left: 8px;
+	background: url(../images/sprites.png) no-repeat;
+	background-size: 200px 200px;
+	background-position: -60px -110px;
+}
+.txt{
+	width: 80%;
+	border: none;
+	outline: none;
+	margin-left: 5px;
+}
+.load{
+	display: inline-block;
+	width: 30px;
+	height: 40px;
+	color: #fff;
+	font-size: 15px;
+	position: absolute;
+	top: 8px;
+	right: 10px;
+}
+#headerBgc{
+	position:absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	width: 100%;
+	height: 40px;
+	opacity: 0;
+	background-color: #d13844;
+}
+
+/*轮播图部分*/
+// .swiper-container{
+// 	width: 100%;
+// }
+// .swiper-wrapper img{
+// 	width: 100%;
+// }
+/*列表部分*/
+.list{
+	padding: 12px 0;
+	font-size: 12px;
+	color: #666;
+	background-color: #fff;
+}
+.list ul{
+	display: flex;
+	justify-content: space-around;
+}
+.list ul:nth-child(2){
+	margin-top: 10px;
+}
+.list ul li{
+	width: 48px;
+}
+.list ul li a{
+	width: 48px;
+	text-align: center;
+}
+.list ul li a img{
+	display:block;
+	margin-left: 4px;
+	width: 40px;
+	height: 40px;
+	margin-bottom: 5px;
+}
+
+
+/*秒杀秒杀*/
+.clock{
+	display: inline-block;
+	width: 18px;
+	height: 22px;
+	margin: 4px 0 0 10px;
+	background: url(../images/sprites.png) -84px -109px no-repeat;
+    background-size: 200px 200px;
+    float: left;;
+}
+.miaosha{
+	margin-top:8px ;	
+	background-color: #fff;
+}
+.miaosha h2{
+	white-space: nowrap;
+    display: inline-block;
+    font-size: 15px;
+    color: #ca1327;
+    margin: 10px 3px 0 4px;
+    float: left;
+}
+.killTimer{
+	display: inline-block;
+	overflow: hidden;
+	margin: 7px 0 0 7px;
+}
+.killTimer span{
+	width: 20px;
+	height: 18px;
+	line-height: 18px;
+	font-size: 14px;
+	border-radius: 4px;
+	text-align: center;
+	display: inline-block;
+	float: left;
+	color: #fff;
+	background-color: #000000;
+}
+.maohao{
+	width: 10px!important;
+	background-color: #fff!important;
+	color: #000!important;
+}
+.more a{
+	display: inline-block;
+	color:#666 ;
+	font-size: 14px;
+	margin: 10px 10px 0 0 ;
+	float: right;
+}
+.touch{
+	margin-top: 5px;
+}
+.goods1 .swiper-slide{
+	text-align: center;
+}
+.liTop img{
+	display: block;
+	width: 90%;
+	padding-left: 10px;
+}
+.liTop{
+	border-right: 1px solid #ccc;
+}
+
+.liBot p:nth-child(1){
+	font-size: 14px;
+	color: red;
+	margin-top: 10px;
+}
+.liBot p:nth-child(2){
+	font-size: 12px;
+	color: #888;
+	text-decoration: line-through;
+	margin: 5px 0 12px 0;
+}
+.goods2{
+	width: 100%;
+	overflow: hidden;
+}
+.goods2 li{
+	width: 33.1%;
+	border-top:1px solid #ccc;
+	border-right: 1px solid #ccc;
+	float: left;
+}
+.goods2 li:nth-child(3){
+	border-right: none;
+}
+.goods2 li img{
+	width: 100%;
+	height: auto;
+}
+.goods3{
+	width: 100%;
+	overflow: hidden;
+}
+.goods3 li{
+	width: 49.8%;
+	border-top:1px solid #ccc ;
+	border-right:1px solid #ccc ;
+	float: left;
+}
+.goods3 li img{
+	width: 100%;
+}
+.goods3 li:nth-child(2),.goods3 li:nth-child(4){
+	border-right:none ;
+}
+/*副轮播图*/
+.vice{
+	width: 97.5%;
+	margin: 0 auto;
+	padding-top:10px ;
+}
+.swiper-slide{
+	/*margin-right: 10px;*/
+}
+
+
+/*底部*/
+.bot1{
+	width: 100%;
+	text-align: center;
+	padding: 10px 0;
+	border-bottom: 1px solid #ccc;
+}
+.bot1 span{
+	display:block;
+	color: #8E9093;
+	cursor: pointer;
+	padding: 0 10px;
+}
+.bot2{
+	width: 100%;
+
+	border-bottom: 1px solid #CCCCCC;
+}
+.bot2 ul{
+	width: 320px;
+	margin: 0 auto;
+	height: 13px;
+	padding: 18px 0;
+}
+.bot2 ul li{
+	display: table-cell;
+    width: 69px;
+    height: 13px;
+    line-height: 13px;
+    font-size: 13px;
+} 
+.bot2 ul li{
+	font-size: 12px;
+	margin-left: 10px;
+	text-align: center;
+	border-right: 1px solid #ccc;
+	float: left;
+}
+.bot2 ul li a{
+	color:#8e9093;
+}
+.bot3{
+	width: 100%;
+	padding: 10px 0;
+	border-bottom: 1px solid #ccc;
+}
+.bot3 ul{
+	height: 50px;
+    width: 320px;
+    margin: 0 auto;
+}
+.bot3 ul li{
+	width: 33.33%;
+	text-align: center;
+	float: left;
+}
+.bot3 a{
+	display:inline-block;
+	width: 38px;
+	height: 50px;
+}
+.bot3 a span{
+	display: inline-block;
+	width: 38px;
+	height: 33px;
+}
+.picture1{
+	background: url(../images/sprites.png) no-repeat;
+	background-size: 200px 200px;
+	background-position: -117px -70px;
+}
+.picture2{
+	background: url(../images/sprites.png) no-repeat;
+	background-size: 200px 200px;
+	background-position: -37px -70px;
+}
+.picture3{
+	background: url(../images/sprites.png) no-repeat;
+	background-size: 200px 200px;
+	background-position: 3px -70px;
+}
+.bot3 a p{
+	font-size: 12px;
+	color: #8E9093;
+	margin-top: 4px;
+}
+.bot4{
+	width: 100%;
+	height: 44px;
+}
+/*footer*/
+.footer{
+	width: 100%;
+	height:44px;
+	background-color: #fff;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 99;
+}
+.footer li{
+	width: 25%;
+	text-align: center;
+	float: left;
+}
+.footer a img{
+	width: 57px;
+	height: 44px;
+}
+/*小火箭*/
+#rocket{
+	width: 34px;
+	height: 33px;
+	border-radius: 50%;
+	background-color: #fff;
+	position: fixed;
+	bottom: 10%;
+	right: 2%;
+	z-index: 99;
+	border: 1px solid #ccc;
+	box-shadow: 1px 1px 1px #ccc;
+	cursor: pointer;
+	text-align: center;
+	line-height: 40px;
+	opacity: 0;
+}
