@@ -1,6 +1,7 @@
 {
   "name": "一个PWA示例",
   "short_name": "PWA示例",
+  "scope" : "/",
   "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#fff",
@@ -11,5 +12,5 @@
       "sizes": "120x120",
       "type": "image/png"
     }
-  ],
+  ]
 }
