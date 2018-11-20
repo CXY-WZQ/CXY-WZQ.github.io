@@ -1,6 +1,6 @@
 {
   "name": "一个PWA示例",
-  "short_name": "PWA示例",
+  "short_name": "PWA",
   "scope" : "/",
   "start_url": "/index.html",
   "display": "standalone",
@@ -8,28 +8,8 @@
   "theme_color": "#3eaf7c",
   "icons": [
     {
-      "src": "/youhun.jpg",
-      "sizes": "120x120",
-      "type": "image/png"
-    },
-    {
-      "src": "/youhun.jpg",
-      "sizes": "120x120",
-      "type": "image/png"
-    },
-    {
-      "src": "/youhun.jpg",
-      "sizes": "120x120",
-      "type": "image/png"
-    },
-    {
-      "src": "/youhun.jpg",
-      "sizes": "120x120",
-      "type": "image/png"
-    },
-    {
-      "src": "/youhun.jpg",
-      "sizes": "120x120",
+      "src": "img/android-launchericon-48-48.png",
+      "sizes": "48x48",
       "type": "image/png"
     }
   ]
