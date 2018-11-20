@@ -13,12 +13,38 @@
   <p>new</p>
 </body>
 <script>
-  // 检测浏览器是否支持SW
-//   if(navigator.serviceWorker != null){
-//     navigator.serviceWorker.register('sw.js')
-//     .then(function(registartion){
-//       console.log('支持sw:',registartion.scope)
-//     })
-//   }
+    // 检测浏览器是否支持SW
+    if(navigator.serviceWorker != null){
+        navigator.serviceWorker.register('sw.js')
+        .then(function(registartion){
+        console.log('支持sw:',registartion.scope)
+        })
+    }
+
+
+   //添加获取通知权限
+   if ('Notification' in window && navigator.serviceWorker) {
+        if (Notification.permission == 'granted') {
+
+        } else {
+            Notification.requestPermission(function (status) {
+                console.log('Notification permission status:', status);
+            });
+        }
+    }
+    //监听推送
+    self.addEventListener('push', function (e) {
+        var options = {
+            body: 'Here is a notification body!', //主体内容
+            icon: 'youhun.jpg', //通知图标
+            vibrate: [100, 50, 100], //震动，先100ms然后暂停50ms最后在震动100ms
+            data: { //通知数据，用于人机交互
+                dateOfArrival: Date.now(),
+                primaryKey: 1
+            }
+        };
+        self.registration.showNotification('Hello world!', options);
+    });
+
 </script>
 </html>
