@@ -4,24 +4,23 @@
   <meta charset="UTF-8">
   <title>Hello PWA</title>
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta src="manifest.json" />
   <link rel="stylesheet" href="main.css">
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
   <h3>Hello PWA</h3>
+  <P>新来的</P>
 </body>
 <script>
   // 检测浏览器是否支持SW
-  if(navigator.serviceWorker != null){
-    navigator.serviceWorker.register('sw.js')
-    .then(function(registartion){
-      console.log('支持sw:',registartion.scope)
-    })
-  }
+  // if(navigator.serviceWorker != null){
+  //   navigator.serviceWorker.register('sw.js')
+  //   .then(function(registartion){
+  //     console.log('支持sw:',registartion.scope)
+  //   })
+  // }
 
-  //This is the "Offline page" service worker
-
-  //Add this below content to your HTML page, or add the js file to your page at the very top to register service worker
   if (navigator.serviceWorker.controller) {
     console.log('[PWA Builder] active service worker found, no need to register')
   } else {
@@ -32,6 +31,5 @@
       console.log('Service worker has been registered for scope:'+ reg.scope);
     });
   }
-  
 </script>
 </html>
