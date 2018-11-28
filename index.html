@@ -3,19 +3,20 @@
 	<head>
 	<meta charset="utf-8">
 	<title>Device Example</title>
-	<script type="text/javascript">
-		// H5 plus事件处理
-		function plusReady(){
-			alert( "uuid: "+plus.device.uuid );
-		}
-		if(window.plus){
-			plusReady();
-		}else{
-			document.addEventListener("plusready",plusReady,false);
-		}
-	</script>
 	</head>
 	<body>
-		获取设备的唯一标识号
+		
+		<script type="text/javascript">
+			// H5 plus事件处理
+			function plusReady(){
+				alert(123);
+				document.write( "uuid: "+plus.device.uuid );
+			}
+			if(window.plus){
+				plusReady();
+			}else{
+				document.addEventListener("plusready",plusReady,false);
+			}
+		</script>
 	</body>
 </html>
