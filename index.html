@@ -199,6 +199,20 @@
                         }
                     }
             );
+
+            var msg = new RongIMLib.TextMessage({content:"hello RongCloud!",extra:"附加信息"});
+            var conversationtype = RongIMLib.ConversationType.PRIVATE; // 单聊,其他会话选择相应的消息类型即可。
+            var targetId = "xxx"; // 目标 Id
+            var pushData = "your pushInfo";
+            RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
+                    onSuccess: function (message) {
+                        console.log(message)
+                    },
+                    onError: function (errorCode,message) {
+                        console.log(message)
+                    }
+                }, false, pushData
+            );
         }
 
 
