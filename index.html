@@ -26,8 +26,6 @@
         }else{
             var promise = navigator.mediaDevices.getUserMedia({audio:true});
             promise.then(function(stream){
-                var audio=document.querySelector("audio");
-                    audio.src=URL.createObjectURL(stream);
                 var recorder=new MediaRecorder(stream);
                 
                 var recorderControl = document.querySelector(".recorderControl");
@@ -39,8 +37,9 @@
                     if( kflag ){
                         e.preventDefault();
                     }else{
+                        // audio.play();
                         recorder.start();
-                        this.textContent==="正在录制";
+                        // this.textContent==="正在录制";
                         kflag = true;
                     }
                 }, false);
@@ -48,8 +47,7 @@
                 recorderControl.addEventListener('touchend', function(e){
                     // audio.pause();
                     recorder.stop();
-                    audio.play();
-                    this.textContent==="录制";
+                    // this.textContent==="录制";
                     kflag = false;
                 }, false);
 
@@ -60,6 +58,10 @@
                 //     this.textContent=this.textContent==="录制"?"停止":"录制";
                 // }
                 recorder.ondataavailable=function(){
+                var audio=document.querySelector("audio");
+                    audio.src=URL.createObjectURL(stream);
+                    audio.play();
+
                     //收集媒体设备 获得到的 可以使用的 媒体流数据
                     alert(event.data)
                 }
