@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title></title>
+	</head>
+	<body>
+		<!--调用手机的拍照功能/直接打开系统文件目录。-->
+		<h5>拍照/选择照片</h5>
+		<input type="file" accept="image/*" capture="camera">
+		<!--解决ios不能选择相册的问题-->
+		<h5>拍照/选择照片，摄像/选择视频 兼容ios</h5>
+		<input type="file" multiple>
+		
+	    <!--调用手机的录像功能和直接打开系统文件目录。-->
+	    <h5>调用手机的录像功能/直接打开系统文件目录</h5>
+	    <input type="file" accept="video/*" capture="camcorder">
+	    
+	    <!--录音-->
+	    <h5>录音</h5>
+	    <!--<input type="file" accept="audio/*" multiple>-->
+	    	<!--只能调用安卓的录音功能-->
+	    <!--<input type="file" accept="audio/*" capture="microphone">-->
+
+	</body>
+</html>
