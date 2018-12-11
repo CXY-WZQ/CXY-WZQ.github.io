@@ -7,9 +7,13 @@
 </head>
 <body>
     <audio></audio>
-    <button class="recorderControl">录制</button>
+    <div class="recorderControl">录制</div>
     
     <script>
+
+        document.body.addEventListener('touchstart', function () { 
+            //...空函数即可
+        });  
         //实时录音监听
         if (navigator.mediaDevices.getUserMedia === undefined) {
             alert('当前浏览器不支持获取设备媒体信息');
@@ -21,11 +25,34 @@
                 var recorder=new MediaRecorder(stream);
                 
                 var recorderControl = document.querySelector(".recorderControl");
-                recorderControl.onclick=function(){
-                    this.textContent==="录制"?audio.play():audio.pause();
-                    this.textContent==="录制"?recorder.start():recorder.stop();
-                    this.textContent=this.textContent==="录制"?"停止":"录制";
-                }
+
+
+                var kflag = false;
+
+                recorderControl.addEventListener('touchstart', function(e){
+                    if( kflag ){
+                        e.preventDefault();
+                    }else{
+                        audio.play();
+                        recorder.start();
+                        this.textContent==="正在录制";
+                        kflag = true;
+                    }
+                }, false);
+
+                recorderControl.addEventListener('touchend', function(e){
+                    audio.pause();
+                    recorder.stop();
+                    this.textContent==="录制";
+                    kflag = false;
+                }, false);
+
+
+                // recorderControl.onclick=function(){
+                //     this.textContent==="录制"?audio.play():audio.pause();
+                //     this.textContent==="录制"?recorder.start():recorder.stop();
+                //     this.textContent=this.textContent==="录制"?"停止":"录制";
+                // }
                 recorder.ondataavailable=function(){
                     //收集媒体设备 获得到的 可以使用的 媒体流数据
                     alert(event.data)
