@@ -39,7 +39,6 @@
                     if( kflag ){
                         e.preventDefault();
                     }else{
-                        audio.play();
                         recorder.start();
                         this.textContent==="正在录制";
                         kflag = true;
@@ -47,6 +46,7 @@
                 }, false);
 
                 recorderControl.addEventListener('touchend', function(e){
+                    audio.play();
                     audio.pause();
                     recorder.stop();
                     this.textContent==="录制";
