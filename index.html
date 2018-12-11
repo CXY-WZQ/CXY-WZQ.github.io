@@ -11,7 +11,7 @@
             navigator.mediaDevices = {};
         }
         if (navigator.mediaDevices.getUserMedia === undefined) {
-            alert('设备不支持');
+            alert('当前浏览器不支持');
             navigator.mediaDevices.getUserMedia = function(constraints) {
                 var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
                 if (!getUserMedia) {
