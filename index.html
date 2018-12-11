@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Document</title>
+    <title>实时录音监听</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 </head>
 <body>
@@ -11,6 +11,11 @@
     
     <script>
         //实时录音监听
+        if (navigator.mediaDevices.getUserMedia === undefined) {
+            alert('当前浏览器不支持获取设备媒体信息');
+            return false;
+        }
+        
         var promise = navigator.mediaDevices.getUserMedia({audio:true});
 
         promise.then(function(stream){
@@ -30,7 +35,7 @@
             }
         });
         
-        //获得到有效数据的时候调用
+        //获得不到有效数据的时候调用
         promise.catch(function(error){
             alert(error)
         });
