@@ -1,39 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<title>Document</title>
-	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta charset="UTF-8">
+    <title>web调取摄像头</title>
 </head>
 <body>
-	<audio></audio>
-	<button class="recorderControl">录制</button>
-	
-	
-	<script>
-		//实时录音监听
-		var promise=navigator.mediaDevices.getUserMedia({audio:true});
-		promise.then(function(stream){
-		var audio=document.querySelector("audio")
-		audio.src=URL.createObjectURL(stream);
-		var recorder=new MediaRecorder(stream);
-		
-		var recorderControl=document.querySelector(".recorderControl");
-		recorderControl.onclick=function(){
-		this.textContent==="录制"?audio.play():audio.pause();
-		this.textContent==="录制"?recorder.start():recorder.stop();
-		this.textContent=this.textContent==="录制"?"停止":"录制";
-		}
-		recorder.ondataavailable=function(){
-		//收集媒体设备 获得到的 可以使用的 媒体流数据
-		console.log(event.data)
-		}
-		});
-		
-		//获得到有效数据的时候调用
-		promise.catch(function(error){
-			console.log(error)
-		});
-	</script>
+    <video src=""></video>
+<script>
+    if (navigator.mediaDevices === undefined) {
+        navigator.mediaDevices = {};
+    }
+    if (navigator.mediaDevices.getUserMedia === undefined) {
+        navigator.mediaDevices.getUserMedia = function(constraints) {
+            var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+            if (!getUserMedia) {
+                return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+            }
+            return new Promise(function(resolve, reject) {
+                getUserMedia.call(navigator, constraints, resolve, reject);
+            });
+        }
+    }
+	window.URL = (window.URL || window.webkitURL || window.mozURL || window.msURL);
+        var mediaOpts = {
+            audio: false,
+            video: true,
+        }
+            function successFunc(stream) {
+                var video = document.querySelector('video');
+                if ("srcObject" in video) {
+                    video.srcObject = stream
+                } else {
+                    video.src = window.URL && window.URL.createObjectURL(stream) || stream
+                }
+                video.play();
+            }
+            function errorFunc(err) {
+                alert(err.name);
+            }
+
+            navigator.getUserMedia(mediaOpts, successFunc, errorFunc);
+    </script>
 </body>
 </html>
