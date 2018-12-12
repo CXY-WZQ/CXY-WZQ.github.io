@@ -65,7 +65,7 @@
             });
         
             recorderControl.addEventListener('touchend', function(e){
-                // audio.pause();
+                audio.pause();
                 recorder.stop();
                 this.textContent="录制";
                 kflag = false;
