@@ -1,39 +1,38 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-	<meta charset="UTF-8" />
-	<title>Document</title>
-	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta charset="utf-8" />
+    <title>录音</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 </head>
 <body>
-	<audio></audio>
-	<button class="recorderControl">录制</button>
-	
-	<script>
-		//实时录音监听
-		var promise = navigator.mediaDevices.getUserMedia({audio:true});
+<audio></audio>
+<button class="recorderControl">录制</button>
 
-		promise.then(function(stream){
-			var audio=document.querySelector("audio");
-				audio.src=URL.createObjectURL(stream);
-			var recorder=new MediaRecorder(stream);
-			
-			var recorderControl = document.querySelector(".recorderControl");
-			recorderControl.onclick=function(){
-				this.textContent==="录制"?audio.play():audio.pause();
-				this.textContent==="录制"?recorder.start():recorder.stop();
-				this.textContent=this.textContent==="录制"?"停止":"录制";
-			}
-			recorder.ondataavailable=function(){
-				//收集媒体设备 获得到的 可以使用的 媒体流数据
-				alert(event.data)
-			}
-		});
-		
-		//获得到有效数据的时候调用
-		promise.catch(function(error){
-			alert(error)
-		});
-	</script>
+<script>
+    var promise=navigator.mediaDevices.getUserMedia({audio:true});
+    promise.then(function(stream){
+        var audio=document.querySelector("audio")
+        audio.src=URL.createObjectURL(stream);
+        var recorder=new MediaRecorder(stream);
+
+        var recorderControl=document.querySelector(".recorderControl");
+        recorderControl.onclick=function(){
+            this.textContent==="录制"?audio.play():audio.pause();
+            this.textContent==="录制"?recorder.start():recorder.stop();
+            this.textContent=this.textContent==="录制"?"停止":"录制";
+        }
+        recorder.ondataavailable=function(){
+            //收集媒体设备 获得到的 可以使用的 媒体流数据
+            console.log(event.data)
+        }
+    });
+
+
+    //获得到有效数据的时候调用
+    promise.catch(function(error){
+        console.log(error)
+    });
+</script>
 </body>
 </html>
