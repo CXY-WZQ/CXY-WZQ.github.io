@@ -10,6 +10,15 @@
             line-height: 30px;
             margin-top: 20px;
         }
+        /* 如果是禁用长按选择文字功能 */
+        *{
+            -webkit-touch-callout:none;
+            -webkit-user-select:none;
+            -khtml-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
+        }
     </style>
 </head>
 <body>
@@ -19,63 +28,69 @@
     <button id="btn-play">播放</button>
     
     <script>
-        // document.body.addEventListener('touchstart', function () { 
-        //     //...空函数即可
-        // });  
+        // 1、移动端按钮的:active伪类是无效的，必须加上
+        document.body.addEventListener('touchstart', function () { 
+            //...空函数即可
+        });  
+
         //实时录音监听
         if (navigator.mediaDevices === undefined) {
             navigator.mediaDevices = {};
-        }else{
-            var promise = navigator.mediaDevices.getUserMedia({audio:true});
-            promise.then(function(stream){
-                var audio = document.getElementById("audio1");
-                    audio.src = URL.createObjectURL(stream);
-                var audio2 = document.getElementById("audio2");
-                var recorder = new MediaRecorder(stream);
-                var recorderControl = document.getElementById("recorderControl");
-                console.log(audio.src)
+            alert('您的浏览器没有实现 mediaDevices')
+        }
+        var promise = navigator.mediaDevices.getUserMedia({audio:true});
+        promise.then(function(stream){
+            var audio = document.getElementById("audio1");
+                // audio.src = URL.createObjectURL(stream);
+                audio.srcObject = stream;
+            var audio2 = document.getElementById("audio2");
+            var recorder = new MediaRecorder(stream);
+            var recorderControl = document.getElementById("recorderControl");
 
-                var kflag = false;
+            var kflag = false;
 
-                recorderControl.addEventListener('touchstart', function(e){
-                    if( kflag ){
-                        e.preventDefault();
-                    }else{
-                        // audio.play();
-                        recorder.start();
-                        this.textContent=="正在录制";
-                        kflag = true;
-                    }
-                }, false);
+            recorderControl.addEventListener('touchstart', function(e){
+                if( kflag ){
+                    e.preventDefault();
+                }else{
+                    audio.play();
+                    recorder.start();
+                    this.textContent="正在录制";
+                    kflag = true;
+                }
+            }, false);
 
-                recorderControl.addEventListener('touchend', function(e){
-                    // audio.pause();
-                    recorder.stop();
-                    this.textContent=="录制";
-                    kflag = false;
-                }, false);
-
-
-                // recorderControl.onclick=function(){
-                //     this.textContent==="录制"?audio.play():audio.pause();
-                //     this.textContent==="录制"?recorder.start():recorder.stop();
-                //     this.textContent=this.textContent==="录制"?"停止":"录制";
-                // }
-                recorder.ondataavailable=function(){
-                    //收集媒体设备 获得到的 可以使用的 媒体流数据
-                    console.log(event.data)
-                    audio2.src = URL.createObjectURL(event.data);
-                }
+            recorderControl.addEventListener('contextmenu', function(e){
+                e.preventDefault();
             });
-            
-            //获得不到有效数据的时候调用
-            promise.catch(function(error){
-                alert(err.name + ": " + err.message);
-            });
+        
+            recorderControl.addEventListener('touchend', function(e){
+                // audio.pause();
+                recorder.stop();
+                this.textContent="录制";
+                kflag = false;
+            }, false);
 
-            document.getElementById("btn-play").onclick = function(){
-                audio2.play();
+
+            // recorderControl.onclick=function(){
+            //     this.textContent==="录制"?audio.play():audio.pause();
+            //     this.textContent==="录制"?recorder.start():recorder.stop();
+            //     this.textContent=this.textContent==="录制"?"停止":"录制";
+            // }
+            recorder.ondataavailable=function(){
+                //收集媒体设备 获得到的 可以使用的 媒体流数据
+                console.log(event.data)
+                audio2.src = URL.createObjectURL(event.data);
             }
+        });
+        
+        //获得不到有效数据的时候调用
+        promise.catch(function(error){
+            alert(err.name + ": " + err.message);
+        });
+
+        document.getElementById("btn-play").onclick = function(){
+            audio2.play();
         }
     </script>
 </body>
