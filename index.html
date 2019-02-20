@@ -1,31 +1,30 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,user-scalable=0">  
-		<meta name="theme-color" content="#3eaf7c"/>
-		<title>crm-bpm</title>
-		<link rel=manifest href=./manifest.json>
-		<script src=//at.alicdn.com/t/font_514887_hbnlmde0c5e.js></script>
-		<script src=src/assets/js/fingerprint.js></script>
-		<script src=./ServerWorkerService.js></script>
-		<noscript>
-          <a href="https://www.baidu.com"></a>
-        </noscript>
-		<style>
-		.icon {
-	        width: 1em; height: 1em;
-	        vertical-align: -0.15em;
-	        fill: currentColor;
-	        overflow: hidden;
-	      }
-	  </style>
-	  <link href=/static/css/app.63ae57cad9a8eab36757613501ef3414.css rel=stylesheet>
-	</head>
-  	<body>
-        <div id=app></div>
-        
-        <script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script>
-        <script type=text/javascript src=/static/js/vendor.ea43ea821fe5465d553a.js></script>
-        <script type=text/javascript src=/static/js/app.145b2867216bb2aad90a.js></script>
-    </body>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="manifest" href="/manifest.json">
+</head>
+<body>
+	<p>本地pwa测试</p>
+
+
+	<script type="text/javascript">
+		if('serviceWorker' in navigator){
+			console.log('您的浏览器支持serviceWorker');
+			console.log(navigator.serviceWorker);
+		}
+
+		if (navigator.serviceWorker.controller) {
+		  console.log('[PWA Builder] active service worker found, no need to register')
+		} else {
+		  //Register the ServiceWorker
+		  navigator.serviceWorker.register('pwabuilder-sw.js', {
+		    scope: './'
+		  }).then(function(reg) {
+		    console.log('Service worker has been registered for scope:'+ reg.scope);
+		  });
+		}
+	</script>
+</body>
 </html>
