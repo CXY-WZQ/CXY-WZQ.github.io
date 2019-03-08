@@ -1,136 +1,65 @@
-// service-worker.js
-const _self = this;
+// This is the "Offline copy of pages" service worker
 
-console.log('In service worker.');
+const CACHE = "pwabuilder-offline";
 
-_self.addEventListener('install', function () {
-    console.log('Install success');
-});
+// TODO: replace the following with the correct offline fallback page i.e.: const offlineFallbackPage = "index.html";
+const offlineFallbackPage = "offline.html";
 
-_self.addEventListener('activate', function () {
-    console.log('Activated');
-});
+// Install stage sets up the index page (home page) in the cache and opens a new cache
+self.addEventListener("install", function (event) {
+  console.log("[PWA Builder] Install Event processing");
 
-_self.addEventListener('message', function(event) {
-    console.log(event.data);
-});
+  event.waitUntil(
+    caches.open(CACHE).then(function (cache) {
+      console.log("[PWA Builder] Cached offline page during install");
 
-// service worker给主页面发送消息
-_self.clients.matchAll().then(function(clients) {
-    clients.forEach(function(client) {
-        client.postMessage('Service worker attached.');
+      if (offlineFallbackPage === "offline.html") {
+        return cache.add(new Response("TODO: Update the value of the offlineFallbackPage constant in the serviceworker."));
+      }
+      
+      return cache.add(offlineFallbackPage);
     })
+  );
 });
 
-const HOST_NAME = location.host;
-const VERSION_NAME = 'CACHE-v1';
-const CACHE_NAME = HOST_NAME + '-' + VERSION_NAME;
-const CACHE_HOST = [HOST_NAME, 'cdn.bootcss.com'];
+// If any fetch fails, it will look for the request in the cache and serve it from there first
+self.addEventListener("fetch", function (event) {
+  if (event.request.method !== "GET") return;
 
-const handleFetchRequest = function(request) {
-    return caches.match(request)
-        .then(function(response) {
-            return response || fetch(request)
-                .then(function(response) {
-                    const clonedResponse = response.clone();
+  event.respondWith(
+    fetch(event.request)
+      .then(function (response) {
+        console.log("[PWA Builder] add page to offline cache: " + response.url);
 
-                    caches.open(CACHE_NAME)
-                        .then(function(cache) {
-                            cache.put(request, clonedResponse);
-                        });
+        // If request was success, add or update it in the cache
+        event.waitUntil(updateCache(event.request, response.clone()));
 
-                    return response;
-                });
-        });
-};
+        return response;
+      })
+      .catch(function (error) {        
+        console.log("[PWA Builder] Network request Failed. Serving content from cache: " + error);
+        return fromCache(event.request);
+      })
+  );
+});
 
-// const isNeedCache = function(url) {
-//     return CACHE_HOST.some(function(host) {
-//         return url.search(host) !== -1;
-//     });
-// };
+function fromCache(request) {
+  // Check to see if you have it in the cache
+  // Return response
+  // If not in the cache, then return error page
+  return caches.open(CACHE).then(function (cache) {
+    return cache.match(request).then(function (matching) {
+      if (!matching || matching.status === 404) {
+        return Promise.reject("no-match");
+      }
 
-// const isCORSRequest = function(url, host) {
-//     return url.search(host) === -1;
-// };
+      return matching;
+    });
+  });
+}
 
-// const isValidResponse = function(response) {
-//     return response && response.status >= 200 && response.status < 400;
-// };
-
-// const handleFetchRequest = function(req) {
-//     if (isNeedCache(req.url)) {
-//         const request = isCORSRequest(req.url, HOST_NAME) ? new Request(req.url, {mode: 'cors'}) : req;
-//         return caches.match(request)
-//             .then(function(response) {
-//                 // Cache hit - return response directly
-//                 if (response) {
-//                     // Update Cache for next time enter
-//                     fetch(request)
-//                         .then(function(response) {
-
-//                             // Check a valid response
-//                             if(isValidResponse(response)) {
-//                                 caches
-//                                     .open(CACHE_NAME)
-//                                     .then(function (cache) {
-//                                         cache.put(request, response);
-//                                     });
-//                             } else {
-//                                 sentMessage('Update cache ' + request.url + ' fail: ' + response.message);
-//                             }
-//                         })
-//                         .catch(function(err) {
-//                             sentMessage('Update cache ' + request.url + ' fail: ' + err.message);
-//                         });
-//                     return response;
-//                 }
-
-//                 // Return fetch response
-//                 return fetch(request)
-//                     .then(function(response) {
-//                         // Check if we received an unvalid response
-//                         if(!isValidResponse(response)) {
-//                             return response;
-//                         }
-
-//                         const clonedResponse = response.clone();
-
-//                         caches
-//                             .open(CACHE_NAME)
-//                             .then(function(cache) {
-//                                 cache.put(request, clonedResponse);
-//                             });
-
-//                         return response;
-//                     });
-//             });
-//     } else {
-//         return fetch(req);
-//     }
-// };
-
-// const onActive = function(event) {
-//     event.waitUntil(
-//         caches
-//             .keys()
-//             .then(function(cacheNames) {
-//                 return Promise.all(
-//                     cacheNames.map(function(cacheName) {
-//                         // Remove expired cache response
-//                         if (CACHE_NAME.indexOf(cacheName) === -1) {
-//                             return caches.delete(cacheName);
-//                         }
-//                     })
-//                 );
-//             })
-//     );
-// };
-
-// _self.addEventListener('activate', onActive);
-
-const onFetch = function(event) {
-    event.respondWith(handleFetchRequest(event.request));
-};
-
-_self.addEventListener('fetch', onFetch);
+function updateCache(request, response) {
+  return caches.open(CACHE).then(function (cache) {
+    return cache.put(request, response);
+  });
+}
